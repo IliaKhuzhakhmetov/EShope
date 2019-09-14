@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+
 
 android {
     compileSdkVersion 29
@@ -15,21 +15,157 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    signingConfigs {
+        def filename = "../keystore.properties"
+
+        release {
+            file(filename).with { propertiesFile ->
+                if (propertiesFile.canRead()) {
+                    def properties = new Properties()
+                    properties.load(new FileInputStream(propertiesFile))
+
+                    storeFile file(properties['storeFile'])
+                    keyAlias properties['keyAlias']
+                    keyPassword properties['keyPassword']
+                    storePassword properties['storePassword']
+                } else println "Unable to read $filename"
+            }
+        }
+    }
+
     buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def ver = variant.versionName
+                    outputFileName = "${variant.flavorName}_${variant.buildType.name}_${ver}.apk"
+                }
+            }
+
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
+
+    ext.getBranch = { ->
+        // def cmd = "git rev-parse  --abbrev-ref HEAD"
+        def cmd = "git symbolic-ref --short HEAD"
+        def proc = cmd.execute()
+
+        def text = proc.text.trim()
+
+        return text
+    }
+
+    ext.getTag = { ->
+        def cmd = "git describe --abbrev=0 --tags"
+        def proc = cmd.execute()
+        return proc.text.trim()
+    }
+
+    def devDimensions = "dev"
+    flavorDimensions devDimensions
+    def versionPropsFile = file('version.properties')
+    def Properties versionProps = new Properties()
+    versionProps.load(new FileInputStream(versionPropsFile))
+    productFlavors {
+        staging {
+            def code = versionProps['VERSION_CODE'].toInteger() + 1
+            versionProps['VERSION_CODE'] = code.toString()
+            versionProps.store(versionPropsFile.newWriter(), null)
+
+            def v1 = (code / 1000).toInteger()
+            def v2 = ((code - v1 * 1000) / 100).toInteger()
+            def v3 = (code - v1 * 1000 - v2 * 100).toInteger()
+
+            dimension devDimensions
+            versionCode code
+            versionName "$v1.$v2.$v3 ${getBranch()}"
+        }
+
+        prod {
+            def code = versionProps['VERSION_CODE'].toInteger()
+            versionProps['VERSION_CODE'] = code.toString()
+            versionProps.store(versionPropsFile.newWriter(), null)
+
+            def v1 = (code / 1000).toInteger()
+            def v2 = ((code - v1 * 1000) / 100).toInteger()
+            def v3 = (code - v1 * 1000 - v2 * 100).toInteger()
+
+            dimension devDimensions
+            versionCode code
+            versionName "${getTag()}"
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+}
+
+ext {
+    appCompat = '1.1.0'
+    constraint = '1.1.3'
+    koin_version = '2.0.1'
+    retrofit_version = '2.6.0'
+    RX = '2.1.0'
+    okhttp = '4.0.1'
+    databinding_kapt = '3.1.4'
+    RV = '1.0.0'
+    material = '1.1.0-alpha10'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.core:core-ktx:1.2.0-alpha04'
+
+    implementation "androidx.recyclerview:recyclerview:$RV"
+
+    implementation "androidx.appcompat:appcompat:$appCompat"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint"
+
+    implementation "com.google.android.material:material:$material"
+
+    //DataBinding annotation processor
+    kapt "com.android.databinding:compiler:$databinding_kapt"
+
+    // Koin DI library
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+
+    //for work with network
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-simplexml:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    //RX
+    implementation "io.reactivex.rxjava2:rxandroid:$RX"
+    implementation "io.reactivex.rxjava2:rxkotlin:$RX"
+
+    //okHttp Client
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+
+    //Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+
 }

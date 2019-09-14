@@ -1,11 +1,25 @@
 <resources>
 
+
+    <!--Title-->
+    <style name="Roboto.Title" parent="Roboto.Bold">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <!--Roboto-->
+    <style name="Roboto.Bold" parent="AppTheme">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/app_background</item>
+        <item name="android:statusBarColor">@android:color/black</item>
     </style>
 
 </resources>
