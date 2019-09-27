@@ -6,9 +6,23 @@
         <item name="android:textSize">24sp</item>
     </style>
 
-    <!--Roboto-->
-    <style name="Roboto.Bold" parent="AppTheme">
+    <!--Bold-->
+    <style name="Roboto.Bold" parent="Text.Base">
         <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <!--Medium-->
+    <style name="Roboto.Medium" parent="Text.Base">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <!--Thin-->
+    <style name="Roboto.Thin" parent="Text.Base">
+        <item name="android:fontFamily">@font/roboto_thin</item>
+    </style>
+
+    <!--Base text-->
+    <style name="Text.Base" parent="AppTheme">
         <item name="android:textColor">@color/text_color</item>
     </style>
 
