@@ -8,7 +8,7 @@ import org.koin.dsl.module
 import ru.don.eshope.repositories.databases.EshopDatabase
 import ru.don.eshope.repositories.interactors.purchase_intercator.PurchaseInteractor
 import ru.don.eshope.repositories.purchase_repo.PurchaseRepository
-import ru.don.eshope.ui.data.DataProvider
+import ru.don.eshope.data.DataProvider
 import ru.don.eshope.ui.purchases_screen.PurchasesListViewModel
 import ru.don.eshope.ui.purchases_screen.PurchasesViewModel
 

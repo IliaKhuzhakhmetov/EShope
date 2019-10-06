@@ -1,8 +1,9 @@
-package ru.don.eshope.ui.data
+package ru.don.eshope.data
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
 import ru.don.eshope.setDef
 
@@ -37,6 +38,9 @@ class DataProvider(context: Context) {
 
         init {
             setDef(sp.getBoolean(DARK_MODE, true))
+
+            if (value == true) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
         override fun setValue(value: Boolean) {

@@ -8,7 +8,7 @@ import ru.don.eshope.domain.entities.Purchase
 import ru.don.eshope.repositories.purchase_repo.PurchaseRepository
 import ru.don.eshope.setDef
 import ru.don.eshope.setThreads
-import ru.don.eshope.ui.data.DataProvider
+import ru.don.eshope.data.DataProvider
 
 class PurchasesViewModel(data: DataProvider, private val purchaseRepository: PurchaseRepository) :
     BaseViewModel() {

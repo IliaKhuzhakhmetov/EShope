@@ -60,6 +60,8 @@
             android:layout_height="wrap_content"
             android:onClick="@{() -> vm.addPurchase()}"
             android:layout_margin="16dp"
+            android:src="@drawable/ic_shopping_cart"
+            app:backgroundTint="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

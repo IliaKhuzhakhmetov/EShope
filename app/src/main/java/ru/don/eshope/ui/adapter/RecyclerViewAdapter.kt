@@ -20,6 +20,11 @@ class RecyclerViewAdapter<T, VM : ViewModel>(
 
     override fun getItemCount(): Int = items.size
 
+    fun clearAndAdd(list: List<T>){
+        clear()
+        addAll(list)
+    }
+
     fun addAll(list: List<T>) {
         items.addAll(list)
         notifyDataSetChanged()
