@@ -1,4 +1,4 @@
-package ru.don.eshope
+package ru.don.eshope.utils
 
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.Completable
@@ -8,7 +8,9 @@ import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.*
 
-const val DAY_PATTERN = "dd-MM-yyyy"
+const val DAY_PATTERN = "dd MMMM yyyy"
+
+fun today() = Calendar.getInstance().time.getTimeByPattern()
 
 fun Date.getTimeByPattern(pattern: String = DAY_PATTERN): String {
     val sdf = SimpleDateFormat(pattern, Locale.US)

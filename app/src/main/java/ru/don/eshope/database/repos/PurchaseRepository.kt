@@ -4,7 +4,7 @@ import kotlinx.coroutines.launch
 import ru.don.eshope.database.entities.Purchase
 import ru.don.eshope.database.entities.PurchaseDao
 import ru.don.eshope.database.repos.base.BaseRepo
-import ru.don.eshope.setThreads
+import ru.don.eshope.utils.setThreads
 
 class PurchaseRepository(private val purchaseDao: PurchaseDao) : BaseRepo() {
 
