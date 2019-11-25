@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="ru.don.eshope.domain.entities.Purchase" />
+            type="ru.don.eshope.database.entities.Purchase" />
 
         <variable
             name="vm"
@@ -22,6 +22,17 @@
         android:paddingTop="8dp"
         android:paddingEnd="16dp"
         android:paddingBottom="8dp">
+
+        <!--Position-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/position"
+            style="@style/Roboto.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(item.id)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--Name-->
         <androidx.appcompat.widget.AppCompatTextView

@@ -1,4 +1,4 @@
-package ru.don.eshope.domain.entities
+package ru.don.eshope.database.entities
 
 import androidx.room.*
 import io.reactivex.Completable
@@ -26,6 +26,9 @@ interface PurchaseDao {
 
     @Query("DELETE FROM purchase_table")
     fun deleteAllPurchases()
+
+    @Query("SELECT * FROM purchase_table WHERE id=:id ")
+    fun getById(id: Int): Single<Purchase>
 
     @Query("SELECT * FROM purchase_table ORDER BY id DESC")
     fun getAllPurchases(): Single<List<Purchase>>

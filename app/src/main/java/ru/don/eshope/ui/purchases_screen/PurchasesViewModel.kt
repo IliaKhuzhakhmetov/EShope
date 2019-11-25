@@ -4,11 +4,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
 import com.roonyx.orcheya.ui.base.BaseViewModel
-import ru.don.eshope.domain.entities.Purchase
-import ru.don.eshope.repositories.purchase_repo.PurchaseRepository
-import ru.don.eshope.setDef
-import ru.don.eshope.setThreads
 import ru.don.eshope.data.DataProvider
+import ru.don.eshope.database.entities.Purchase
+import ru.don.eshope.database.repos.PurchaseRepository
+import ru.don.eshope.setDef
 
 class PurchasesViewModel(data: DataProvider, private val purchaseRepository: PurchaseRepository) :
     BaseViewModel() {
@@ -26,10 +25,10 @@ class PurchasesViewModel(data: DataProvider, private val purchaseRepository: Pur
 
     fun changeTheme() {
         if (isDay.value == true) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             isDay.value = false
         } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             isDay.value = true
         }
     }
@@ -37,14 +36,18 @@ class PurchasesViewModel(data: DataProvider, private val purchaseRepository: Pur
     fun addPurchase() {
         purchaseRepository.insert(
             Purchase(null, "Kek", "lol", 23.0)
-        )
+        ).subscribe({
+            Log.d(TAG, "success")
+        }
+            , {
+                it.printStackTrace()
+            }).unSubscribeOnDestroy()
         getAllPurchases()
     }
 
 
-    fun getAllPurchases() {
+    private fun getAllPurchases() {
         purchaseRepository.getAllPurchases()
-            .setThreads()
             .subscribe(
                 {
                     purchases.value = it

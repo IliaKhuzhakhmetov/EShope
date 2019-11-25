@@ -7,8 +7,8 @@ import com.roonyx.orcheya.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_purchases.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.don.eshope.R
+import ru.don.eshope.database.entities.Purchase
 import ru.don.eshope.databinding.ActivityPurchasesBinding
-import ru.don.eshope.domain.entities.Purchase
 import ru.don.eshope.ui.adapter.RecyclerViewAdapter
 
 class PurchasesActivity : BaseActivity<ActivityPurchasesBinding>() {
@@ -34,13 +34,16 @@ class PurchasesActivity : BaseActivity<ActivityPurchasesBinding>() {
             listVM
         )
 
+        adapter.items = vm.purchases
         rv.adapter = adapter
 
-        vm.purchases.observe({
-            lifecycle
-        },{
-            adapter.clearAndAdd(it)
-        } )
+        vm.purchases.observe(
+            {
+                lifecycle
+            }, {
+                adapter.notifyDataSetChanged()
+            }
+        )
     }
 
 }
