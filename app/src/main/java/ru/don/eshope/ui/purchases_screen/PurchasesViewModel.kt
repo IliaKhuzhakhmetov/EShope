@@ -24,13 +24,7 @@ class PurchasesViewModel(data: DataProvider, private val purchaseRepository: Pur
     }
 
     fun changeTheme() {
-        if (isDay.value == true) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            isDay.value = false
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            isDay.value = true
-        }
+        isDay.value = !isDay.value!!
     }
 
     fun addPurchase() {

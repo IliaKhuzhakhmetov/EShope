@@ -37,16 +37,17 @@ class DataProvider(context: Context) {
     val isDarkMode = object : MutableLiveData<Boolean>() {
 
         init {
-            setDef(sp.getBoolean(DARK_MODE, true))
-
+            postValue(sp.getBoolean(DARK_MODE, true))
             if (value == true) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
         override fun setValue(value: Boolean) {
             super.setValue(value)
-
             saveBoolean(DARK_MODE, value)
+
+            if (value) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 
