@@ -1,13 +1,15 @@
 package ru.don.eshope.ui.purchases_screen
 
 import android.util.Log
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
 import com.roonyx.orcheya.ui.base.BaseViewModel
+import ru.don.eshope.DAY_PATTERN
 import ru.don.eshope.data.DataProvider
 import ru.don.eshope.database.entities.Purchase
 import ru.don.eshope.database.repos.PurchaseRepository
+import ru.don.eshope.getTimeByPattern
 import ru.don.eshope.setDef
+import java.util.*
 
 class PurchasesViewModel(data: DataProvider, private val purchaseRepository: PurchaseRepository) :
     BaseViewModel() {
@@ -29,14 +31,13 @@ class PurchasesViewModel(data: DataProvider, private val purchaseRepository: Pur
 
     fun addPurchase() {
         purchaseRepository.insert(
-            Purchase(null, "Kek", "lol", 23.0)
-        ).subscribe({
-            Log.d(TAG, "success")
-        }
+            Purchase(null, "Kek", Calendar.getInstance().time.getTimeByPattern(), 23.0)
             , {
+                getAllPurchases()
+            },
+            {
                 it.printStackTrace()
-            }).unSubscribeOnDestroy()
-        getAllPurchases()
+            })
     }
 
 

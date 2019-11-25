@@ -50,6 +50,6 @@ fun createDataBaseModule() = module {
 
     // Repos
     single(named(PURCHASE_REPO)) {
-        PurchaseRepository(get<EshopDatabase>(named(DATA_BASE)).purchaseDao())
+        PurchaseRepository(get(named(PURCHASE_DAO)))
     }
 }

@@ -8,11 +8,11 @@ import ru.don.eshope.setThreads
 
 class PurchaseRepository(private val purchaseDao: PurchaseDao) : BaseRepo() {
 
-    fun insert(purchase: Purchase) =// launch {
-       // makeOnIoThread {
-            purchaseDao.insert(purchase).setThreads()
-        //}
-   // }
+    fun insert(purchase: Purchase, success: () -> Unit, error: (t: Throwable) -> Unit) = launch {
+        makeOnIoThread {
+            purchaseDao.insert(purchase).setThreads().subscribe({ success() }, { error(it) })
+        }
+    }
 
     fun update(purchase: Purchase) = launch {
         makeOnIoThread {

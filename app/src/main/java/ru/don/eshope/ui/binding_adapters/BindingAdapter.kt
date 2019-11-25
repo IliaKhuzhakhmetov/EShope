@@ -6,6 +6,5 @@ import ru.don.eshope.R
 
 @BindingAdapter("isDay", requireAll = false)
 fun AppCompatImageView.setTheme(isDay: Boolean?) {
-    if (isDay != true) setImageResource(R.drawable.ic_moon) else
-        setImageResource(R.drawable.ic_sun)
+    if (isDay != true) setImageResource(R.drawable.ic_moon) else setImageResource(R.drawable.ic_sun)
 }
