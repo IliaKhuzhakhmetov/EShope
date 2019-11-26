@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="ru.don.eshope.ui.add_purchase_screen.AddPurchasesViewModel" />
+            type="ru.don.eshope.ui.purchase_one_screen.OnePurchasesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,29 +68,6 @@
             app:layout_constraintTop_toBottomOf="@+id/amount"
             tools:listitem="@layout/item_purchase" />
 
-        <!--Save-->
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/save"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:onClick="@{() -> vm.save()}"
-            android:tint="@color/text_color"
-            app:layout_constraintBottom_toBottomOf="@+id/add"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/add"
-            app:srcCompat="@drawable/ic_check_black_24dp" />
 
-        <!--FAB-->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:onClick="@{() -> vm.clickAddItem()}"
-            android:src="@drawable/ic_add_black_24dp"
-            app:backgroundTint="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

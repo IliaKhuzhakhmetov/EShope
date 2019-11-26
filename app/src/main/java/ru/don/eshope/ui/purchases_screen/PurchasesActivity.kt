@@ -13,10 +13,12 @@ import ru.don.eshope.databinding.ActivityPurchasesBinding
 import ru.don.eshope.ui.adapter.HeaderItemDecoration
 import ru.don.eshope.ui.adapter.RecyclerViewAdapter
 import ru.don.eshope.ui.add_purchase_screen.AddPurchasesActivity
+import ru.don.eshope.ui.purchase_one_screen.OnePurchasesActivity
+import ru.don.eshope.ui.purchase_one_screen.OnePurchasesActivity.Companion.ID
 import ru.don.eshope.utils.dip
 
 
-class PurchasesActivity : BaseActivity<ActivityPurchasesBinding>() {
+class PurchasesActivity : BaseActivity<ActivityPurchasesBinding>(), IPurchasesListViewModel {
 
     override val layoutId = R.layout.activity_purchases
     private val listVM: PurchasesListViewModel by viewModel()
@@ -43,6 +45,7 @@ class PurchasesActivity : BaseActivity<ActivityPurchasesBinding>() {
 
     private fun initPurchasesRv() {
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        listVM.listener = this
 
         val adapter = RecyclerViewAdapter<Purchase, PurchasesListViewModel>(
             R.layout.item_purchase,
@@ -74,6 +77,13 @@ class PurchasesActivity : BaseActivity<ActivityPurchasesBinding>() {
                 adapter.notifyDataSetChanged()
             }
         )
+    }
+
+    override fun onPurchaseClick(purchase: Purchase) {
+        val intent = Intent(this, OnePurchasesActivity::class.java).apply {
+            putExtra(ID, purchase.id)
+        }
+        startActivity(intent)
     }
 
 }

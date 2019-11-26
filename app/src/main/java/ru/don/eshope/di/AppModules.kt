@@ -11,6 +11,8 @@ import ru.don.eshope.database.repos.ItemRepository
 import ru.don.eshope.database.repos.PurchaseRepository
 import ru.don.eshope.ui.add_purchase_screen.AddPurchasesListViewModel
 import ru.don.eshope.ui.add_purchase_screen.AddPurchasesViewModel
+import ru.don.eshope.ui.purchase_one_screen.OnePurchasesListViewModel
+import ru.don.eshope.ui.purchase_one_screen.OnePurchasesViewModel
 import ru.don.eshope.ui.purchases_screen.PurchasesListViewModel
 import ru.don.eshope.ui.purchases_screen.PurchasesViewModel
 
@@ -18,6 +20,8 @@ fun createViewModelModule() = module {
     viewModel { PurchasesViewModel(get(named(DATA_PROVIDER)), get(named(PURCHASE_REPO))) }
     viewModel { PurchasesListViewModel() }
     viewModel { AddPurchasesViewModel(get(named(ITEM_REPO)), get(named(PURCHASE_REPO))) }
+    viewModel { OnePurchasesViewModel(get(named(PURCHASE_REPO))) }
+    viewModel { OnePurchasesListViewModel() }
     viewModel { AddPurchasesListViewModel() }
 }
 

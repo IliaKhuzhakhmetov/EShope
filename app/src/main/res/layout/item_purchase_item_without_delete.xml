@@ -3,36 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="item"
-            type="ru.don.eshope.database.entities.Purchase" />
-
+            type="ru.don.eshope.database.entities.Item" />
         <variable
             name="vm"
-            type="ru.don.eshope.ui.purchases_screen.PurchasesListViewModel" />
-
+            type="ru.don.eshope.ui.purchase_one_screen.OnePurchasesListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{()->vm.onClick(item)}"
         android:orientation="vertical"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
         android:paddingEnd="16dp"
         android:paddingBottom="8dp">
-
-        <!--Position-->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/position"
-            style="@style/Roboto.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.valueOf(item.id)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <!--Name-->
         <androidx.appcompat.widget.AppCompatTextView
@@ -50,7 +36,7 @@
             style="@style/Roboto.Thin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.format(`%.2f`, item.amount)}"
+            android:text="@{String.format(`%.2f`, item.price * item.count)}"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name" />
