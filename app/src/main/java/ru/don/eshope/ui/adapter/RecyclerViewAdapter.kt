@@ -2,7 +2,6 @@ package ru.don.eshope.ui.adapter
 
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +11,7 @@ class RecyclerViewAdapter<T, VM : ViewModel>(
     private val vm: VM
 ) : RecyclerView.Adapter<BindingViewHolder>() {
 
-    var items = MutableLiveData<List<T>>(listOf())
+    var items = MutableLiveData<ArrayList<T>>(arrayListOf())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BindingViewHolder
         .create(layoutId, parent)

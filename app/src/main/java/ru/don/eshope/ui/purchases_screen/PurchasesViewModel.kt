@@ -15,7 +15,7 @@ class PurchasesViewModel(data: DataProvider, private val purchaseRepository: Pur
     }
 
     val isDay = data.isDarkMode
-    val purchases = MutableLiveData<List<Purchase>>(listOf())
+    val purchases = MutableLiveData<ArrayList<Purchase>>(arrayListOf())
 
     init {
         getAllPurchases()
@@ -29,7 +29,7 @@ class PurchasesViewModel(data: DataProvider, private val purchaseRepository: Pur
         purchaseRepository.getAllPurchases()
             .subscribe(
                 {
-                    purchases.value = it
+                    purchases.value = ArrayList(it)
                     Log.d(TAG, "Purchases size: ${it.size}")
                 },
                 { it.printStackTrace() }

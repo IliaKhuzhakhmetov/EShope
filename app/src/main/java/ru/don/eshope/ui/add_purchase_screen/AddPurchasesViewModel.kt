@@ -15,8 +15,8 @@ interface IAddPurchase {
 }
 
 class AddPurchasesViewModel(
-    val itemRepository: ItemRepository,
-    val purchaseRepository: PurchaseRepository
+    private val itemRepository: ItemRepository,
+    private val purchaseRepository: PurchaseRepository
 ) :
     BaseViewModel() {
 
@@ -25,12 +25,12 @@ class AddPurchasesViewModel(
     }
 
     val purchaseName = MutableLiveData<String>("")
-    val items = MutableLiveData<MutableList<Item>>(mutableListOf())
+    val items = MutableLiveData<ArrayList<Item>>(arrayListOf())
     lateinit var listener: IAddPurchase
 
-    fun clickAddItem() {
-        listener.addItem()
-    }
+    fun clickAddItem() = listener.addItem()
+
+    fun back() = listener.back()
 
     fun save() {
         var amount = 0.0
@@ -59,5 +59,6 @@ class AddPurchasesViewModel(
         Log.d(TAG, "Items size: ${items.value?.size}")
     }
 
+    fun deleteItem(item: Item) = items.value?.remove(item)
 
 }

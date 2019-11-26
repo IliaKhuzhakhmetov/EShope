@@ -6,11 +6,11 @@
 
         <variable
             name="item"
-            type="ru.don.eshope.database.entities.Purchase" />
+            type="ru.don.eshope.database.entities.Item" />
 
         <variable
             name="vm"
-            type="ru.don.eshope.ui.purchases_screen.PurchasesListViewModel" />
+            type="ru.don.eshope.ui.add_purchase_screen.AddPurchasesListViewModel" />
 
     </data>
 
@@ -23,15 +23,17 @@
         android:paddingEnd="16dp"
         android:paddingBottom="8dp">
 
-        <!--Position-->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/position"
-            style="@style/Roboto.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.valueOf(item.id)}"
+        <!--Delete-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/delete"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:onClick="@{() -> vm.delete(item)}"
+            android:tint="@color/text_color"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_close_black_24dp" />
 
         <!--Name-->
         <androidx.appcompat.widget.AppCompatTextView
@@ -49,7 +51,7 @@
             style="@style/Roboto.Thin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.format(`%.2f`, item.amount)}"
+            android:text="@{String.format(`%.2f`, item.price * item.count)}"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name" />
