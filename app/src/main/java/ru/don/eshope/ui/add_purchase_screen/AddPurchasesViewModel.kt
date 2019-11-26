@@ -7,11 +7,14 @@ import ru.don.eshope.database.entities.Item
 import ru.don.eshope.database.entities.Purchase
 import ru.don.eshope.database.repos.ItemRepository
 import ru.don.eshope.database.repos.PurchaseRepository
+import ru.don.eshope.utils.getAmount
 import ru.don.eshope.utils.today
 
 interface IAddPurchase {
     fun addItem()
     fun back()
+    fun emptyBasket()
+    fun emptyName()
 }
 
 class AddPurchasesViewModel(
@@ -24,6 +27,7 @@ class AddPurchasesViewModel(
         val TAG = AddPurchasesViewModel::class.java.simpleName
     }
 
+    val amount = MutableLiveData<Double>(0.0)
     val purchaseName = MutableLiveData<String>("")
     val items = MutableLiveData<ArrayList<Item>>(arrayListOf())
     lateinit var listener: IAddPurchase
@@ -33,13 +37,24 @@ class AddPurchasesViewModel(
     fun back() = listener.back()
 
     fun save() {
-        var amount = 0.0
-        items.value?.forEach {
-            amount += it.count * it.price
+
+        if (purchaseName.value?.isEmpty() == true) {
+            listener.emptyName()
+            return
+        }
+
+        if (items.value?.isEmpty() == true) {
+            listener.emptyBasket()
+            return
         }
 
         purchaseRepository.insert(
-            Purchase(null, purchaseName.value ?: "No name", today(), amount)
+            Purchase(
+                null,
+                purchaseName.value ?: "No name",
+                today(),
+                items.value?.getAmount() ?: 0.0
+            )
         ) { id ->
             items.value?.forEach { item ->
                 itemRepository.insert(
@@ -56,9 +71,13 @@ class AddPurchasesViewModel(
         items.value?.add(
             Item(null, name!!, 1, price!!, null)
         )
+        amount.value = amount.value?.plus(price!!)
         Log.d(TAG, "Items size: ${items.value?.size}")
     }
 
-    fun deleteItem(item: Item) = items.value?.remove(item)
+    fun deleteItem(item: Item) {
+        items.value?.remove(item)
+        amount.value = amount.value?.minus(item.price * item.count)
+    }
 
 }

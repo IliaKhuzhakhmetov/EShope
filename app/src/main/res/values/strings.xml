@@ -7,4 +7,7 @@
     <string name="item_name">Item name</string>
     <string name="price">Price</string>
     <string name="save">Save</string>
+    <string name="oops">Oops</string>
+    <string name="empty_basket">You cant add empty basket</string>
+    <string name="enter_name_pls">Enter name please</string>
 </resources>

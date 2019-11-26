@@ -5,9 +5,11 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.roonyx.orcheya.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_purchases.*
+import kotlinx.android.synthetic.main.activity_add_purchases.*
+import kotlinx.android.synthetic.main.activity_purchases.rv
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.don.eshope.R
 import ru.don.eshope.database.entities.Item
@@ -70,6 +72,12 @@ class AddPurchasesActivity : BaseActivity<ActivityAddPurchasesBinding>(), IAddPu
     override fun back() {
         finish()
     }
+
+    override fun emptyBasket() =
+        Snackbar.make(root, getString(R.string.empty_basket), Snackbar.LENGTH_SHORT).show()
+
+    override fun emptyName() =
+        Snackbar.make(root, getString(R.string.enter_name_pls), Snackbar.LENGTH_SHORT).show()
 
     override fun onDelete(item: Item) {
         vm.deleteItem(item)
