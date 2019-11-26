@@ -1,5 +1,6 @@
 package ru.don.eshope.ui.purchases_screen
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -9,9 +10,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.don.eshope.R
 import ru.don.eshope.database.entities.Purchase
 import ru.don.eshope.databinding.ActivityPurchasesBinding
-import ru.don.eshope.utils.dip
 import ru.don.eshope.ui.adapter.HeaderItemDecoration
 import ru.don.eshope.ui.adapter.RecyclerViewAdapter
+import ru.don.eshope.ui.add_purchase_screen.AddPurchasesActivity
+import ru.don.eshope.utils.dip
 
 
 class PurchasesActivity : BaseActivity<ActivityPurchasesBinding>() {
@@ -26,7 +28,17 @@ class PurchasesActivity : BaseActivity<ActivityPurchasesBinding>() {
         binding.lifecycleOwner = this
         binding.vm = vm
 
+        fab.setOnClickListener {
+            val intent = Intent(this, AddPurchasesActivity::class.java)
+            startActivity(intent)
+        }
+
         initPurchasesRv()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        vm.getAllPurchases()
     }
 
     private fun initPurchasesRv() {

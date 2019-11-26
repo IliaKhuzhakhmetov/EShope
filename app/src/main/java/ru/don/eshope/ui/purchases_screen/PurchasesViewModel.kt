@@ -6,8 +6,6 @@ import com.roonyx.orcheya.ui.base.BaseViewModel
 import ru.don.eshope.data.DataProvider
 import ru.don.eshope.database.entities.Purchase
 import ru.don.eshope.database.repos.PurchaseRepository
-import ru.don.eshope.utils.setDef
-import ru.don.eshope.utils.today
 
 class PurchasesViewModel(data: DataProvider, private val purchaseRepository: PurchaseRepository) :
     BaseViewModel() {
@@ -17,7 +15,7 @@ class PurchasesViewModel(data: DataProvider, private val purchaseRepository: Pur
     }
 
     val isDay = data.isDarkMode
-    val purchases = MutableLiveData<List<Purchase>>().setDef(listOf())
+    val purchases = MutableLiveData<List<Purchase>>(listOf())
 
     init {
         getAllPurchases()
@@ -27,19 +25,7 @@ class PurchasesViewModel(data: DataProvider, private val purchaseRepository: Pur
         isDay.value = !isDay.value!!
     }
 
-    fun addPurchase() {
-        purchaseRepository.insert(
-            Purchase(null, "Kek", today(), 23.0)
-            , {
-                getAllPurchases()
-            },
-            {
-                it.printStackTrace()
-            })
-    }
-
-
-    private fun getAllPurchases() {
+    fun getAllPurchases() {
         purchaseRepository.getAllPurchases()
             .subscribe(
                 {

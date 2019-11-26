@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">EShope</string>
     <string name="purchases">Purchases</string>
+    <string name="enter_name">Enter name...</string>
+    <string name="add_item">Add item to your basket</string>
+    <string name="new_item">New item</string>
+    <string name="item_name">Item name</string>
+    <string name="price">Price</string>
+    <string name="save">Save</string>
 </resources>

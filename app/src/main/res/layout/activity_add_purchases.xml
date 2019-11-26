@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
-            type="ru.don.eshope.ui.purchases_screen.PurchasesViewModel" />
+            type="ru.don.eshope.ui.add_purchase_screen.AddPurchasesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,29 +15,33 @@
         android:layout_height="match_parent">
 
         <!--Title-->
-        <androidx.appcompat.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/title"
             style="@style/Roboto.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/purchases"
+            android:hint="@string/enter_name"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:text="@={vm.purchaseName}"
+            app:layout_constraintEnd_toStartOf="@+id/back"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--Day/Night-->
+        <!--Back-->
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ic_day"
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:onClick="@{() -> vm.changeTheme()}"
             android:tint="@color/text_color"
-            app:isDay="@{vm.isDay}"
             app:layout_constraintBottom_toBottomOf="@+id/title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title" />
+            app:layout_constraintTop_toTopOf="@+id/title"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
         <!--List-->
         <androidx.recyclerview.widget.RecyclerView
@@ -50,13 +55,27 @@
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:listitem="@layout/item_purchase" />
 
+        <!--Save-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/save"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:onClick="@{() -> vm.save()}"
+            android:tint="@color/text_color"
+            app:layout_constraintBottom_toBottomOf="@+id/add"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/add"
+            app:srcCompat="@drawable/ic_check_black_24dp" />
+
         <!--FAB-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_shopping_cart"
+            android:onClick="@{() -> vm.clickAddItem()}"
+            android:src="@drawable/ic_add_black_24dp"
             app:backgroundTint="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
