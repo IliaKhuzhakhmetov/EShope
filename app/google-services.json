@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "953672250408",
+    "firebase_url": "https://eshop-be1ed.firebaseio.com",
+    "project_id": "eshop-be1ed",
+    "storage_bucket": "eshop-be1ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953672250408:android:4cab98f64bfa6e0e85711d",
+        "android_client_info": {
+          "package_name": "ru.don.eshope"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953672250408-4lc39kp867at0cim9nqqi6nu49b4inkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLT3N8oS9r62JytNWtAr5EGIsASTEBcPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953672250408-4lc39kp867at0cim9nqqi6nu49b4inkm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -21,6 +21,7 @@
 
         <activity android:name=".ui.add_purchase_screen.AddPurchasesActivity" />
         <activity android:name=".ui.purchase_one_screen.OnePurchasesActivity" />
+
     </application>
 
 </manifest>
