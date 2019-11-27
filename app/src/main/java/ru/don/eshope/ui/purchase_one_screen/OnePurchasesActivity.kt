@@ -3,6 +3,7 @@ package ru.don.eshope.ui.purchase_one_screen
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.roonyx.orcheya.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_purchases.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -54,6 +55,20 @@ class OnePurchasesActivity : BaseActivity<ActivityOnePurchaseBinding>(), IOnePur
 
     override fun back() {
         finish()
+    }
+
+    override fun deleteDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.delete_purchase))
+            .setMessage(getString(R.string.delete_purchase_info))
+            .setPositiveButton(getString(R.string.yes)) { d, _ ->
+                vm.deletePurchase()
+                d.dismiss()
+            }
+            .setNegativeButton(getString(R.string.no)) { d, _ ->
+                d.dismiss()
+            }
+            .show()
     }
 
 }

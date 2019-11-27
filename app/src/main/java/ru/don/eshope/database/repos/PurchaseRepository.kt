@@ -29,6 +29,16 @@ class PurchaseRepository(private val purchaseDao: PurchaseDao) : BaseRepo() {
         }
     }
 
+    fun deleteById(id: Int, success: () -> Unit, error: (throwable: Throwable) -> Unit) = launch {
+        makeOnIoThread {
+            purchaseDao.deleteById(id).subscribe({
+                success()
+            }, {
+                error(it)
+            })
+        }
+    }
+
     fun deleteAllPurchases() = launch {
         makeOnIoThread {
             purchaseDao.deleteAllPurchases()

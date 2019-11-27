@@ -10,4 +10,9 @@
     <string name="oops">Oops</string>
     <string name="empty_basket">You cant add empty basket</string>
     <string name="enter_name_pls">Enter name please</string>
+    <string name="delete">DELETE</string>
+    <string name="delete_purchase">Delete purchase</string>
+    <string name="delete_purchase_info">Do you really want to delete the purchase? After removal, it will not be possible to restore</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

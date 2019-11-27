@@ -29,6 +29,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--Delete-->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/delete"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/delete"
+            android:onClick="@{() -> vm.deleteDialog()}"
+            app:layout_constraintBottom_toBottomOf="@+id/amount"
+            app:layout_constraintEnd_toStartOf="@+id/amount"
+            app:layout_constraintTop_toTopOf="@id/amount" />
+
         <!--Amount-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/amount"
