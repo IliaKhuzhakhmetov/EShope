@@ -15,4 +15,6 @@
     <string name="delete_purchase_info">Do you really want to delete the purchase? After removal, it will not be possible to restore</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="edit">Edit</string>
+    <string name="select_date">Select date</string>
 </resources>

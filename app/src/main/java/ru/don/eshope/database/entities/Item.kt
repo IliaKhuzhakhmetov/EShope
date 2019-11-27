@@ -2,6 +2,7 @@ package ru.don.eshope.database.entities
 
 import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
+import io.reactivex.Completable
 import io.reactivex.Single
 import ru.don.eshope.database.entities.base.BaseDao
 
@@ -14,7 +15,7 @@ import ru.don.eshope.database.entities.base.BaseDao
     )]
 )
 data class Item(
-    @PrimaryKey(autoGenerate = true) val id: Int?,
+    @PrimaryKey(autoGenerate = true) var id: Int?,
     @ColumnInfo(name = "item_name") val name: String,
     @ColumnInfo(name = "item_count") var count: Int,
     @ColumnInfo(name = "item_price") var price: Double,
@@ -29,5 +30,8 @@ interface ItemDao : BaseDao<Item> {
 
     @Query("SELECT * FROM item_table ORDER BY id DESC")
     fun getAllItems(): Single<List<Item>>
+
+    @Query("DELETE FROM item_table WHERE purchase_id=:purchaseId")
+    fun deleteByPurchaseId(purchaseId: Int): Completable
 
 }

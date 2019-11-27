@@ -33,4 +33,14 @@ interface PurchaseDao : BaseDao<Purchase> {
     @Query("SELECT * FROM purchase_table ORDER BY id DESC")
     fun getAllPurchases(): Single<List<Purchase>>
 
+    @Query("UPDATE purchase_table SET shop_name = :name WHERE id =:id")
+    fun updateName(name: String, id: Int?)
+
+    @Query("UPDATE purchase_table SET purchase_date = :date WHERE id =:id")
+    fun updateDate(date: String, id: Int?)
+
+    @Query("UPDATE purchase_table SET purchase_amount = :amount WHERE id =:id")
+    fun updateAmount(amount: Double, id: Int?)
+
+
 }

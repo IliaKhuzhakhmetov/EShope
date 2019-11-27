@@ -7,28 +7,13 @@
 
         <variable
             name="vm"
-            type="ru.don.eshope.ui.purchase_one_screen.OnePurchasesViewModel" />
+            type="ru.don.eshope.ui.edit_purchase.EditPurchasesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <!--Title-->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/title"
-            style="@style/Roboto.Title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:text="@={vm.purchaseName}"
-            app:layout_constraintEnd_toStartOf="@+id/back"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <!--Date-->
         <androidx.appcompat.widget.AppCompatTextView
@@ -37,39 +22,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:onClick="@{() -> vm.changeTime()}"
             android:text="@{vm.date}"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/amount"
+            app:layout_constraintBottom_toTopOf="@+id/rv"
             app:layout_constraintEnd_toStartOf="@+id/amount"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toTopOf="@+id/amount" />
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
-        <!--Delete-->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/delete"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
+        <!--Title-->
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/title"
+            style="@style/Roboto.Title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:onClick="@{() -> vm.deleteDialog()}"
-            android:text="@string/delete"
-            app:layout_constraintBottom_toBottomOf="@+id/edit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/edit" />
-
-        <!--Edit-->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:onClick="@{() -> vm.edit()}"
-            android:text="@string/edit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date" />
+            android:hint="@string/enter_name"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:text="@={vm.purchaseName}"
+            app:layout_constraintEnd_toStartOf="@+id/back"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--Amount-->
         <androidx.appcompat.widget.AppCompatTextView
@@ -107,9 +85,32 @@
             android:layoutAnimation="@anim/layout_animation"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/delete"
+            app:layout_constraintTop_toBottomOf="@+id/amount"
             tools:listitem="@layout/item_purchase" />
 
+        <!--Save-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/save"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:onClick="@{() -> vm.save()}"
+            android:tint="@color/text_color"
+            app:layout_constraintBottom_toBottomOf="@+id/add"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/add"
+            app:srcCompat="@drawable/ic_check_black_24dp" />
 
+        <!--FAB-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:onClick="@{() -> vm.clickAddItem()}"
+            android:src="@drawable/ic_add_black_24dp"
+            app:backgroundTint="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

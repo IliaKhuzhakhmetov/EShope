@@ -19,7 +19,9 @@ class PurchaseRepository(private val purchaseDao: PurchaseDao) : BaseRepo() {
 
     fun update(purchase: Purchase) = launch {
         makeOnIoThread {
-            purchaseDao.update(purchase)
+            purchaseDao.updateName(purchase.name, purchase.id)
+            purchaseDao.updateDate(purchase.date, purchase.id)
+            purchaseDao.updateAmount(purchase.amount, purchase.id)
         }
     }
 

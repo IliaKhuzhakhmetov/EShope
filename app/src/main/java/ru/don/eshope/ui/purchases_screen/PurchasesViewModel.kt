@@ -29,7 +29,11 @@ class PurchasesViewModel(data: DataProvider, private val purchaseRepository: Pur
         purchaseRepository.getAllPurchases()
             .subscribe(
                 {
-                    purchases.value = ArrayList(it)
+                    purchases.value = ArrayList(it).apply {
+                        sortBy { purchase -> purchase.id }
+                        sortBy { purchase -> purchase.date }
+                        reverse()
+                    }
                     Log.d(TAG, "Purchases size: ${it.size}")
                 },
                 { it.printStackTrace() }

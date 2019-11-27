@@ -26,6 +26,12 @@ class ItemRepository(private val itemDao: ItemDao) : BaseRepo() {
         }
     }
 
+    fun deleteByPurchaseId(purchaseId: Int) = launch {
+        makeOnIoThread {
+            itemDao.deleteByPurchaseId(purchaseId).subscribe()
+        }
+    }
+
     fun getById(id: Int) =
         itemDao.getById(id).setThreads()
 
