@@ -7,15 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.*
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import androidx.recyclerview.widget.RecyclerView.State
 import ru.don.eshope.R
 
-
-class HeaderItemDecoration(
+class HeaderItemDecorationPurchase(
     private val headerOffset: Int,
-    private val sticky: Boolean, private val sectionCallback: SectionCallback
+    private val sticky: Boolean,
+    private val sectionCallback: SectionCallback
 ) :
     ItemDecoration() {
+
     private var headerView: View? = null
     private var header: TextView? = null
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State) {
@@ -26,9 +28,7 @@ class HeaderItemDecoration(
             state
         )
         val pos = parent.getChildAdapterPosition(view)
-        if (sectionCallback.isSection(pos)) {
-            outRect.top = headerOffset
-        }
+        if (sectionCallback.isSection(pos)) outRect.top = headerOffset
     }
 
     override fun onDrawOver(
@@ -43,12 +43,8 @@ class HeaderItemDecoration(
         )
         if (headerView == null) {
             headerView = inflateHeaderView(parent)
-            header =
-                headerView!!.findViewById<View>(R.id.list_item_section_text) as TextView
-            fixLayoutSize(
-                headerView,
-                parent
-            )
+            header = headerView!!.findViewById<View>(R.id.list_item_section_text) as TextView
+            fixLayoutSize(headerView, parent)
         }
         var previousHeader: CharSequence = ""
         for (i in 0 until parent.childCount) {
@@ -76,10 +72,7 @@ class HeaderItemDecoration(
         if (sticky) {
             c.translate(
                 0f,
-                Math.max(
-                    0,
-                    child.top - headerView!!.height
-                ).toFloat()
+                0.coerceAtLeast(child.top - headerView!!.height).toFloat()
             )
         } else {
             c.translate(
@@ -100,10 +93,6 @@ class HeaderItemDecoration(
             )
     }
 
-    /**
-     * Measures the header view to make sure its size is greater than 0 and will be drawn
-     * https://yoda.entelect.co.za/view/9627/how-to-android-recyclerview-item-decorations
-     */
     private fun fixLayoutSize(view: View?, parent: ViewGroup) {
         val widthSpec = View.MeasureSpec.makeMeasureSpec(
             parent.width,
@@ -137,7 +126,7 @@ class HeaderItemDecoration(
 
     interface SectionCallback {
         fun isSection(position: Int): Boolean
-        fun getSectionHeader(position: Int): CharSequence
+        fun getSectionHeader(position: Int): CharSequence // Title and Amount
     }
 
 }

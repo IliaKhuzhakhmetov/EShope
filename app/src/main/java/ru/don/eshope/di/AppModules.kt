@@ -19,7 +19,13 @@ import ru.don.eshope.ui.purchases_screen.PurchasesListViewModel
 import ru.don.eshope.ui.purchases_screen.PurchasesViewModel
 
 fun createViewModelModule() = module {
-    viewModel { PurchasesViewModel(get(named(DATA_PROVIDER)), get(named(PURCHASE_REPO))) }
+    viewModel {
+        PurchasesViewModel(
+            get(named(DATA_PROVIDER)),
+            get(named(PURCHASE_REPO)),
+            get(named(APP_CONTEXT))
+        )
+    }
     viewModel { PurchasesListViewModel() }
 
     viewModel { OnePurchasesViewModel(get(named(PURCHASE_REPO))) }

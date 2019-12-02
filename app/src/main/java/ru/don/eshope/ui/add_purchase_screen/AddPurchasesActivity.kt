@@ -65,8 +65,13 @@ class AddPurchasesActivity : BaseActivity<ActivityAddPurchasesBinding>(), IAddPu
                     (d as Dialog).findViewById<TextInputEditText>(R.id.et_name)?.text?.toString()
                 val price =
                     d.findViewById<TextInputEditText>(R.id.et_price)?.text?.toString()
-                        ?.toDouble()
-                vm.addNewItem(name, price)
+
+                when(price) {
+                    "" -> createSnackBar(getString(R.string.price_empty))
+                    "." -> createSnackBar(getString(R.string.er))
+                    null -> createSnackBar(getString(R.string.price_null))
+                    else -> vm.addNewItem(name, price.toDouble())
+                }
             }
             .show()
     }
@@ -75,11 +80,12 @@ class AddPurchasesActivity : BaseActivity<ActivityAddPurchasesBinding>(), IAddPu
         finish()
     }
 
-    override fun emptyBasket() =
-        Snackbar.make(root, getString(R.string.empty_basket), Snackbar.LENGTH_SHORT).show()
+    override fun emptyBasket() = createSnackBar(getString(R.string.empty_basket))
 
-    override fun emptyName() =
-        Snackbar.make(root, getString(R.string.enter_name_pls), Snackbar.LENGTH_SHORT).show()
+    override fun emptyName() = createSnackBar(getString(R.string.enter_name_pls))
+
+    private fun createSnackBar(msg: String) =
+        Snackbar.make(root, msg, Snackbar.LENGTH_SHORT).show()
 
     override fun changeTime(time: Long) {
         MaterialDatePicker.Builder.datePicker()

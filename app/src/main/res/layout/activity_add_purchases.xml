@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="vm"
             type="ru.don.eshope.ui.add_purchase_screen.AddPurchasesViewModel" />
@@ -14,6 +13,18 @@
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <!--icon-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.changeTime()}"
+            android:tint="@color/text_color"
+            app:layout_constraintBottom_toBottomOf="@+id/date"
+            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintTop_toTopOf="@+id/date"
+            app:srcCompat="@drawable/ic_today_black_24dp" />
 
         <!--Date-->
         <androidx.appcompat.widget.AppCompatTextView
@@ -26,10 +37,11 @@
             android:text="@{vm.date}"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toTopOf="@+id/rv"
             app:layout_constraintEnd_toStartOf="@+id/amount"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintStart_toEndOf="@+id/ic_date"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <!--Title-->

@@ -10,13 +10,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.don.eshope.R
 import ru.don.eshope.database.entities.Purchase
 import ru.don.eshope.databinding.ActivityPurchasesBinding
-import ru.don.eshope.ui.adapter.HeaderItemDecoration
 import ru.don.eshope.ui.adapter.RecyclerViewAdapter
 import ru.don.eshope.ui.add_purchase_screen.AddPurchasesActivity
 import ru.don.eshope.ui.purchase_one_screen.OnePurchasesActivity
 import ru.don.eshope.ui.purchase_one_screen.OnePurchasesActivity.Companion.ID
-import ru.don.eshope.utils.dip
-
 
 class PurchasesActivity : BaseActivity<ActivityPurchasesBinding>(), IPurchasesListViewModel {
 
@@ -55,27 +52,14 @@ class PurchasesActivity : BaseActivity<ActivityPurchasesBinding>(), IPurchasesLi
         adapter.items = vm.purchases
         rv.adapter = adapter
 
-        val sectionItemDecoration =
-            HeaderItemDecoration(dip(46), true, object : HeaderItemDecoration.SectionCallback {
-                override fun isSection(position: Int): Boolean {
-                    return position == 0 ||
-                            vm.purchases.value?.get(position)?.date !=
-                            vm.purchases.value?.get(position - 1)?.date
-                }
+        vm.reInitItemDecorator()
+        rv.addItemDecoration(vm.itemDecoration)
 
-                override fun getSectionHeader(position: Int): CharSequence {
-                    return vm.purchases.value?.get(position)?.date ?: ":("
-                }
-
-            })
-        rv.addItemDecoration(sectionItemDecoration)
-
-        vm.purchases.observe(
-            {
-                lifecycle
-            }, {
-                adapter.notifyDataSetChanged()
-            }
+        vm.purchases.observe({
+            lifecycle
+        }, {
+            adapter.notifyDataSetChanged()
+        }
         )
     }
 
