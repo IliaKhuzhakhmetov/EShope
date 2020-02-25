@@ -31,10 +31,22 @@ fun createViewModelModule() = module {
     viewModel { OnePurchasesViewModel(get(named(PURCHASE_REPO))) }
     viewModel { OnePurchasesListViewModel() }
 
-    viewModel { AddPurchasesViewModel(get(named(ITEM_REPO)), get(named(PURCHASE_REPO))) }
+    viewModel {
+        AddPurchasesViewModel(
+            get(named(APP_CONTEXT)),
+            get(named(ITEM_REPO)),
+            get(named(PURCHASE_REPO))
+        )
+    }
     viewModel { AddPurchasesListViewModel() }
 
-    viewModel { EditPurchasesViewModel(get(named(ITEM_REPO)), get(named(PURCHASE_REPO))) }
+    viewModel {
+        EditPurchasesViewModel(
+            get(named(APP_CONTEXT)),
+            get(named(ITEM_REPO)),
+            get(named(PURCHASE_REPO))
+        )
+    }
     viewModel { EditPurchasesListViewModel() }
 }
 

@@ -18,8 +18,9 @@ import ru.don.eshope.databinding.ActivityEditPurchaseBinding
 import ru.don.eshope.ui.adapter.RecyclerViewAdapter
 import ru.don.eshope.ui.add_purchase_screen.AddPurchasesListListener
 import ru.don.eshope.ui.add_purchase_screen.AddPurchasesListViewModel
+import ru.don.eshope.ui.base.IPurchase
 
-class EditPurchasesActivity : BaseActivity<ActivityEditPurchaseBinding>(), IEditPurchase,
+class EditPurchasesActivity : BaseActivity<ActivityEditPurchaseBinding>(), IPurchase,
     AddPurchasesListListener {
 
     companion object {
@@ -56,11 +57,19 @@ class EditPurchasesActivity : BaseActivity<ActivityEditPurchaseBinding>(), IEdit
         adapter.items = vm.items
         rv.adapter = adapter
 
+        initMsgListener()
+
         vm.items.observe(
             { lifecycle }, {
                 adapter.notifyDataSetChanged()
             }
         )
+    }
+
+    private fun initMsgListener() {
+        vm.validateErrorMsg.observe({ lifecycle }, {
+            createSnackBar(it)
+        })
     }
 
     override fun addItem() {
@@ -74,12 +83,7 @@ class EditPurchasesActivity : BaseActivity<ActivityEditPurchaseBinding>(), IEdit
                 val price =
                     d.findViewById<TextInputEditText>(R.id.et_price)?.text?.toString()
 
-                when(price) {
-                    "" -> createSnackBar(getString(R.string.price_empty))
-                    "." -> createSnackBar(getString(R.string.er))
-                    null -> createSnackBar(getString(R.string.price_null))
-                    else -> vm.addNewItem(name, price.toDouble())
-                }
+                vm.validateNamePrice(name, price)
             }
             .show()
     }
