@@ -2,43 +2,37 @@ package ru.don.eshope.ui.add_purchase_screen
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.roonyx.orcheya.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_add_purchases.*
-import kotlinx.android.synthetic.main.activity_add_purchases.view.*
-import kotlinx.android.synthetic.main.activity_purchases.rv
 import kotlinx.android.synthetic.main.dialog_add_purchase.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.don.eshope.R
 import ru.don.eshope.database.entities.Item
 import ru.don.eshope.databinding.ActivityAddPurchasesBinding
-import ru.don.eshope.ui.adapter.RecyclerViewAdapter
 import ru.don.eshope.ui.base.IPurchase
 import ru.don.eshope.ui.edit_purchase.EditPurchasesActivity
+import ru.don.eshope.utils.createSnackBar
 
 class AddPurchasesActivity : BaseActivity<ActivityAddPurchasesBinding>(), IPurchase {
 
     override val layoutId = R.layout.activity_add_purchases
     private val vm: AddPurchasesViewModel by viewModel()
-    private val listVM: AddPurchasesListViewModel by viewModel()
+    private val listVM: PurchaseListViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding.lifecycleOwner = this
+        binding.listVM = listVM
         binding.vm = vm
 
         vm.listener = this
 
-        initPurchasesRv()
         initMsgListener()
 
-        initDeleteItemAction()
         initEditAction()
     }
 
@@ -60,10 +54,7 @@ class AddPurchasesActivity : BaseActivity<ActivityAddPurchasesBinding>(), IPurch
                 val price =
                     d.findViewById<TextInputEditText>(R.id.et_price)?.text?.toString()
 
-                if (vm.validateNamePrice(name, price, item)) {
-                    val lm = rv.layoutManager as LinearLayoutManager
-                    root.rv.adapter?.notifyDataSetChanged()
-                }
+                listVM.validateNamePrice(name, price, item)
             }
             .show()
     }
@@ -74,35 +65,10 @@ class AddPurchasesActivity : BaseActivity<ActivityAddPurchasesBinding>(), IPurch
         })
     }
 
-    private fun initDeleteItemAction() {
-        listVM.deleteItem.observe({ lifecycle }, {
-            vm.deleteItem(it)
-            rv.adapter?.notifyDataSetChanged()
-        })
-    }
-
     private fun initMsgListener() {
-        vm.validateErrorMsg.observe({ lifecycle }, {
-            createSnackBar(it)
+        listVM.validateErrorMsg.observe({ lifecycle }, {
+            createSnackBar(root, it)
         })
-    }
-
-    private fun initPurchasesRv() {
-        rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-
-        val adapter = RecyclerViewAdapter<Item, AddPurchasesListViewModel>(
-            R.layout.item_purchase_item,
-            listVM
-        )
-
-        adapter.items = vm.items
-        rv.adapter = adapter
-
-        vm.items.observe(
-            { lifecycle }, {
-                adapter.notifyDataSetChanged()
-            }
-        )
     }
 
     override fun addItem() {
@@ -116,7 +82,7 @@ class AddPurchasesActivity : BaseActivity<ActivityAddPurchasesBinding>(), IPurch
                 val price =
                     d.findViewById<TextInputEditText>(R.id.et_price)?.text?.toString()
 
-                vm.validateNamePrice(name, price)
+                listVM.validateNamePrice(name, price)
             }
             .show()
     }
@@ -125,12 +91,9 @@ class AddPurchasesActivity : BaseActivity<ActivityAddPurchasesBinding>(), IPurch
         finish()
     }
 
-    override fun emptyBasket() = createSnackBar(getString(R.string.empty_basket))
+    override fun emptyBasket() = createSnackBar(root, getString(R.string.empty_basket))
 
-    override fun emptyName() = createSnackBar(getString(R.string.enter_name_pls))
-
-    private fun createSnackBar(msg: String) =
-        Snackbar.make(root, msg, Snackbar.LENGTH_SHORT).show()
+    override fun emptyName() = createSnackBar(root, getString(R.string.enter_name_pls))
 
     override fun changeTime(time: Long) {
         MaterialDatePicker.Builder.datePicker()

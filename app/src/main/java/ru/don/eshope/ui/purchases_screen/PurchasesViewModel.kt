@@ -22,7 +22,7 @@ class PurchasesViewModel(
     }
 
     val isDay = data.isDarkMode
-    val purchases = MutableLiveData<ArrayList<Purchase>>(arrayListOf())
+    val purchases = MutableLiveData<MutableList<Purchase>>(mutableListOf())
     lateinit var itemDecoration: HeaderItemDecorationPurchase
 
     init {

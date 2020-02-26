@@ -5,9 +5,6 @@ import com.roonyx.orcheya.ui.base.BaseViewModel
 import ru.don.eshope.database.entities.Item
 import ru.don.eshope.database.entities.PurchaseAndItems
 import ru.don.eshope.database.repos.PurchaseRepository
-import ru.don.eshope.utils.getTimeByPattern
-import java.util.*
-import kotlin.collections.ArrayList
 
 interface IOnePurchasesViewModel {
     fun back()
@@ -27,7 +24,7 @@ class OnePurchasesViewModel(
     lateinit var listener: IOnePurchasesViewModel
     val amount = MutableLiveData<Double>(0.0)
     val purchaseName = MutableLiveData<String>("")
-    val items = MutableLiveData<ArrayList<Item>>(arrayListOf())
+    val items = MutableLiveData<MutableList<Item>>(mutableListOf())
     val date = MutableLiveData<String>()
     private val purchase = MutableLiveData<PurchaseAndItems>()
 

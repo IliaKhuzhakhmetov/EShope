@@ -9,9 +9,8 @@ import ru.don.eshope.data.DataProvider
 import ru.don.eshope.database.databases.EshopDatabase
 import ru.don.eshope.database.repos.ItemRepository
 import ru.don.eshope.database.repos.PurchaseRepository
-import ru.don.eshope.ui.add_purchase_screen.AddPurchasesListViewModel
 import ru.don.eshope.ui.add_purchase_screen.AddPurchasesViewModel
-import ru.don.eshope.ui.edit_purchase.EditPurchasesListViewModel
+import ru.don.eshope.ui.add_purchase_screen.PurchaseListViewModel
 import ru.don.eshope.ui.edit_purchase.EditPurchasesViewModel
 import ru.don.eshope.ui.purchase_one_screen.OnePurchasesListViewModel
 import ru.don.eshope.ui.purchase_one_screen.OnePurchasesViewModel
@@ -26,6 +25,7 @@ fun createViewModelModule() = module {
             get(named(APP_CONTEXT))
         )
     }
+    viewModel { PurchaseListViewModel(get(named(PURCHASE_REPO))) }
     viewModel { PurchasesListViewModel() }
 
     viewModel { OnePurchasesViewModel(get(named(PURCHASE_REPO))) }
@@ -38,7 +38,6 @@ fun createViewModelModule() = module {
             get(named(PURCHASE_REPO))
         )
     }
-    viewModel { AddPurchasesListViewModel() }
 
     viewModel {
         EditPurchasesViewModel(
@@ -47,7 +46,6 @@ fun createViewModelModule() = module {
             get(named(PURCHASE_REPO))
         )
     }
-    viewModel { EditPurchasesListViewModel() }
 }
 
 const val APP_CONTEXT = "ApplicationContext"

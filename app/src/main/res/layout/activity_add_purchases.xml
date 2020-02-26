@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="listVM"
+            type="ru.don.eshope.ui.add_purchase_screen.PurchaseListViewModel" />
+
+        <variable
             name="vm"
             type="ru.don.eshope.ui.add_purchase_screen.AddPurchasesViewModel" />
     </data>
@@ -76,7 +80,7 @@
                 android:layout_marginTop="8dp"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:text="@{String.format(`%.2f`,vm.amount)}"
+                android:text="@{String.format(`%.2f`, listVM.amount)}"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="@+id/back"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -101,6 +105,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
                 android:layoutAnimation="@anim/layout_animation"
+                app:adapter="@{listVM.adapter}"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/amount"
@@ -118,7 +123,7 @@
             android:layout_gravity="start|bottom"
             android:layout_margin="16dp"
             android:layout_marginStart="16dp"
-            android:onClick="@{() -> vm.save()}"
+            android:onClick="@{() -> vm.save(listVM.items)}"
             android:tint="@color/text_color"
             app:layout_anchorGravity="bottom"
             app:srcCompat="@drawable/ic_check_black_24dp" />

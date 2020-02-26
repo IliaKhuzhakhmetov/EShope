@@ -2,6 +2,7 @@ package ru.don.eshope.ui.add_purchase_screen
 
 import android.content.Context
 import android.util.Log
+import ru.don.eshope.database.entities.Item
 import ru.don.eshope.database.entities.Purchase
 import ru.don.eshope.database.repos.ItemRepository
 import ru.don.eshope.database.repos.PurchaseRepository
@@ -20,13 +21,13 @@ class AddPurchasesViewModel(
         val TAG = AddPurchasesViewModel::class.java.simpleName
     }
 
-    override fun save() {
+    fun save(items: List<Item>) {
         if (purchaseName.value?.isEmpty() == true) {
             listener.emptyName()
             return
         }
 
-        if (items.value?.isEmpty() == true) {
+        if (items.isEmpty()) {
             listener.emptyBasket()
             return
         }
@@ -36,10 +37,10 @@ class AddPurchasesViewModel(
                 null,
                 purchaseName.value ?: "No name",
                 date.value ?: today(),
-                items.value?.getAmount() ?: 0.0
+                items.getAmount()
             )
         ) { id ->
-            items.value?.forEach { item ->
+            items.forEach { item ->
                 itemRepository.insert(
                     item.apply { purchaseId = id }
                 ) {

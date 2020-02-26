@@ -12,7 +12,7 @@ class RecyclerViewAdapter<T, VM : ViewModel>(
     private val vm: VM
 ) : RecyclerView.Adapter<BindingViewHolder>() {
 
-    var items: LiveData<ArrayList<T>> = MutableLiveData(arrayListOf())
+    var items: LiveData<MutableList<T>> = MutableLiveData(mutableListOf())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BindingViewHolder
         .create(layoutId, parent)

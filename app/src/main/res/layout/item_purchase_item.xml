@@ -10,17 +10,17 @@
 
         <variable
             name="vm"
-            type="ru.don.eshope.ui.add_purchase_screen.AddPurchasesListViewModel" />
+            type="ru.don.eshope.ui.add_purchase_screen.PurchaseListViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:longClickable="true"
+        android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:longClickable="true"
         android:onLongClick="@{(view) -> vm.edit(view, item)}"
         android:orientation="vertical"
         android:paddingStart="16dp"
@@ -33,7 +33,7 @@
             android:id="@+id/delete"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:onClick="@{() -> vm.delete(item)}"
+            android:onClick="@{() -> vm.deleteItem(item)}"
             android:tint="@color/text_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

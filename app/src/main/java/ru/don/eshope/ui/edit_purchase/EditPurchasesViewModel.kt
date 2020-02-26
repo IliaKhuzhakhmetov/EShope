@@ -9,11 +9,8 @@ import ru.don.eshope.database.entities.PurchaseAndItems
 import ru.don.eshope.database.repos.ItemRepository
 import ru.don.eshope.database.repos.PurchaseRepository
 import ru.don.eshope.ui.base.BaseProductVM
-import ru.don.eshope.utils.getTimeByPattern
+import ru.don.eshope.utils.getAmount
 import ru.don.eshope.utils.today
-import java.util.*
-import kotlin.collections.ArrayList
-
 
 
 class EditPurchasesViewModel(
@@ -29,13 +26,15 @@ class EditPurchasesViewModel(
 
     private var purchase = MutableLiveData<PurchaseAndItems>()
 
-    override fun save() {
+    fun save(items: List<Item>) {
         if (purchaseName.value?.isEmpty() == true) {
-            listener.emptyName();return
+            listener.emptyName();
+            return
         }
 
-        if (items.value?.isEmpty() == true) {
-            listener.emptyBasket(); return
+        if (items.isEmpty()) {
+            listener.emptyBasket()
+            return
         }
 
         purchaseRepository.update(
@@ -43,17 +42,17 @@ class EditPurchasesViewModel(
                 purchase.value?.id ?: -1,
                 purchaseName.value ?: "",
                 date.value ?: today(),
-                amount.value ?: 0.0
+                items.getAmount()
             )
-        ).invokeOnCompletion { saveItems() }
+        ).invokeOnCompletion { saveItems(items) }
 
     }
 
-    private fun saveItems() {
+    private fun saveItems(items: List<Item>) {
         itemRepository.deleteByPurchaseId(purchase.value?.id ?: -1).invokeOnCompletion {
             // ReAdd items
             purchase.value?.id?.let { id ->
-                items.value?.forEach { item ->
+                items.forEach { item ->
                     itemRepository.insert(
                         item.apply {
                             this.id = null
@@ -72,9 +71,7 @@ class EditPurchasesViewModel(
         purchaseRepository.getById(id).subscribe(
             {
                 purchase.value = it
-                _amount.value = it.amount
                 _date.value = it.date
-                _items.value = ArrayList(it.items)
                 purchaseName.value = it.name
             }, {
                 it.printStackTrace()
