@@ -21,4 +21,5 @@
     <string name="price_null">Price is null</string>
     <string name="er">Error</string>
     <string name="name_emty_error">Name can\'t be empty</string>
+    <string name="edit_item">Edit item</string>
 </resources>

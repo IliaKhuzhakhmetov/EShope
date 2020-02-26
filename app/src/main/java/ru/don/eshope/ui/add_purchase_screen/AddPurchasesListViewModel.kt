@@ -1,23 +1,31 @@
 package ru.don.eshope.ui.add_purchase_screen
 
-import android.util.Log
+import android.view.View
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.roonyx.orcheya.ui.base.BaseViewModel
 import ru.don.eshope.database.entities.Item
 
-interface AddPurchasesListListener {
-    fun onDelete(item: Item)
-}
-
 class AddPurchasesListViewModel : BaseViewModel() {
+
+    // Edit item
+    private val _editItem = MutableLiveData<Item>()
+    val edititem: LiveData<Item> = _editItem
+
+    // Delete item
+    private val _deleteItem = MutableLiveData<Item>()
+    val deleteItem: LiveData<Item> = _deleteItem
 
     companion object {
         val TAG = AddPurchasesListViewModel::class.java.simpleName
     }
 
-    lateinit var listener: AddPurchasesListListener
+    fun edit(view: View, item: Item): Boolean {
+        _editItem.value = item
+        return false
+    }
 
     fun delete(item: Item) {
-        listener.onDelete(item)
-        Log.d(TAG, "Item ${item.name} deleted")
+        _deleteItem.value = item
     }
 }

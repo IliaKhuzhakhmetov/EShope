@@ -4,114 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="ru.don.eshope.ui.add_purchase_screen.AddPurchasesViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/root"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--icon-->
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ic_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.changeTime()}"
-            android:tint="@color/text_color"
-            app:layout_constraintBottom_toBottomOf="@+id/date"
-            app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toTopOf="@+id/date"
-            app:srcCompat="@drawable/ic_today_black_24dp" />
-
-        <!--Date-->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/date"
-            style="@style/Roboto.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:onClick="@{() -> vm.changeTime()}"
-            android:text="@{vm.date}"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/rv"
-            app:layout_constraintEnd_toStartOf="@+id/amount"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/ic_date"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
-
-        <!--Title-->
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/title"
-            style="@style/Roboto.Title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:hint="@string/enter_name"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:text="@={vm.purchaseName}"
-            app:layout_constraintEnd_toStartOf="@+id/back"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!--Amount-->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/amount"
-            style="@style/Roboto.Thin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:text="@{String.format(`%.2f`,vm.amount)}"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/back"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
-
-        <!--Back-->
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:onClick="@{() -> vm.back()}"
-            android:tint="@color/text_color"
-            app:layout_constraintBottom_toBottomOf="@+id/title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title"
-            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
-
-        <!--List-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layoutAnimation="@anim/layout_animation"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/amount"
-            tools:listitem="@layout/item_purchase" />
+            android:layout_height="match_parent">
+
+            <!--icon-->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> vm.changeTime()}"
+                android:tint="@color/text_color"
+                app:layout_constraintBottom_toBottomOf="@+id/date"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toTopOf="@+id/date"
+                app:srcCompat="@drawable/ic_today_black_24dp" />
+
+            <!--Date-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/date"
+                style="@style/Roboto.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:onClick="@{() -> vm.changeTime()}"
+                android:text="@{vm.date}"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/rv"
+                app:layout_constraintEnd_toStartOf="@+id/amount"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/ic_date"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <!--Title-->
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/title"
+                style="@style/Roboto.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/enter_name"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:text="@={vm.purchaseName}"
+                app:layout_constraintEnd_toStartOf="@+id/back"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Amount-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/amount"
+                style="@style/Roboto.Thin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:text="@{String.format(`%.2f`,vm.amount)}"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/back"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <!--Back-->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> vm.back()}"
+                android:tint="@color/text_color"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title"
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
+            <!--List-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layoutAnimation="@anim/layout_animation"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/amount"
+                app:layout_constraintVertical_bias="1.0"
+                tools:layout_editor_absoluteX="0dp"
+                tools:listitem="@layout/item_purchase_item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--Save-->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/save"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_gravity="start|bottom"
+            android:layout_margin="16dp"
             android:layout_marginStart="16dp"
             android:onClick="@{() -> vm.save()}"
             android:tint="@color/text_color"
-            app:layout_constraintBottom_toBottomOf="@+id/add"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/add"
+            app:layout_anchorGravity="bottom"
             app:srcCompat="@drawable/ic_check_black_24dp" />
 
         <!--FAB-->
@@ -119,11 +128,13 @@
             android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:onClick="@{() -> vm.clickAddItem()}"
             android:src="@drawable/ic_add_black_24dp"
             app:backgroundTint="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_anchorGravity="bottom"
+            app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

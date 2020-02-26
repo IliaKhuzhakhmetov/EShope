@@ -16,7 +16,7 @@ import ru.don.eshope.database.entities.base.BaseDao
 )
 data class Item(
     @PrimaryKey(autoGenerate = true) var id: Int?,
-    @ColumnInfo(name = "item_name") val name: String,
+    @ColumnInfo(name = "item_name") var name: String,
     @ColumnInfo(name = "item_count") var count: Int,
     @ColumnInfo(name = "item_price") var price: Double,
     @ColumnInfo(name = "purchase_id") var purchaseId: Int?

@@ -15,8 +15,13 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:longClickable="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:onLongClick="@{(view) -> vm.edit(view, item)}"
         android:orientation="vertical"
         android:paddingStart="16dp"
         android:paddingTop="8dp"

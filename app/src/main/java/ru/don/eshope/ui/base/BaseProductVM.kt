@@ -58,10 +58,17 @@ abstract class BaseProductVM(open val context: Context) : BaseViewModel() {
 
     fun back() = listener.back()
 
-    fun validateNamePrice(name: String?, price: String?): Boolean {
+    fun validateNamePrice(name: String?, price: String?, item: Item? = null): Boolean {
         return if (validateName(name)) {
             if (validatePrice(price)) {
-                addNewItem(name, price?.toDouble())
+                if (item == null)
+                    addNewItem(name, price?.toDouble())
+                else {
+                    item.name = name!!
+                    item.price = price!!.toDouble()
+
+                    updateAmount()
+                }
                 true
             } else false
         } else false
@@ -95,11 +102,17 @@ abstract class BaseProductVM(open val context: Context) : BaseViewModel() {
         }
     }
 
+    private fun updateAmount() {
+        _amount.value = _items.value?.sumByDouble {
+            it.price
+        }
+    }
+
     private fun addNewItem(name: String?, price: Double?) {
         _items.value?.add(
             Item(null, name!!, 1, price!!, null)
         )
-        _amount.value = _amount.value?.plus(price!!)
+        updateAmount()
         Log.d(AddPurchasesViewModel.TAG, "Items size: ${_items.value?.size}")
     }
 
