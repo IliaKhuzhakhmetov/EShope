@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="item"
             type="ru.don.eshope.database.entities.Item" />
+
         <variable
             name="vm"
-            type="ru.don.eshope.ui.purchase_one_screen.OnePurchasesListViewModel" />
+            type="ru.don.eshope.ui.purchase_one_screen.OnePurchasesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

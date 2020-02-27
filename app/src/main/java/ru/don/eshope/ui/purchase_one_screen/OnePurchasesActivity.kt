@@ -26,7 +26,6 @@ class OnePurchasesActivity : BaseActivity<ActivityOnePurchaseBinding>(), IOnePur
     private var purchaseId: Int = -1
     override val layoutId = R.layout.activity_one_purchase
     private val vm: OnePurchasesViewModel by viewModel()
-    private val listVM: OnePurchasesListViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,27 +34,12 @@ class OnePurchasesActivity : BaseActivity<ActivityOnePurchaseBinding>(), IOnePur
         binding.vm = vm
         vm.listener = this
 
+        purchaseId = intent.getIntExtra(ID, 0)
+
         initItemsRv()
     }
 
     private fun initItemsRv() {
-        rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-
-        val adapter = RecyclerViewAdapter<Item, OnePurchasesListViewModel>(
-            R.layout.item_purchase_item_without_delete,
-            listVM
-        )
-
-        adapter.items = vm.items
-        rv.adapter = adapter
-
-        vm.items.observe(
-            { lifecycle }, {
-                adapter.notifyDataSetChanged()
-            }
-        )
-
-        purchaseId = intent.getIntExtra(ID, 0)
         vm.getItemsByPurchaseId(purchaseId)
     }
 

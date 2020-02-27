@@ -12,9 +12,7 @@ import ru.don.eshope.database.repos.PurchaseRepository
 import ru.don.eshope.ui.add_purchase_screen.AddPurchasesViewModel
 import ru.don.eshope.ui.add_purchase_screen.PurchaseListViewModel
 import ru.don.eshope.ui.edit_purchase.EditPurchasesViewModel
-import ru.don.eshope.ui.purchase_one_screen.OnePurchasesListViewModel
 import ru.don.eshope.ui.purchase_one_screen.OnePurchasesViewModel
-import ru.don.eshope.ui.purchases_screen.PurchasesListViewModel
 import ru.don.eshope.ui.purchases_screen.PurchasesViewModel
 
 fun createViewModelModule() = module {
@@ -25,27 +23,18 @@ fun createViewModelModule() = module {
             get(named(APP_CONTEXT))
         )
     }
+
+    // PurchaseList in Edit/ Add
     viewModel { PurchaseListViewModel(get(named(PURCHASE_REPO))) }
-    viewModel { PurchasesListViewModel() }
 
+    // OnePurchase
     viewModel { OnePurchasesViewModel(get(named(PURCHASE_REPO))) }
-    viewModel { OnePurchasesListViewModel() }
 
-    viewModel {
-        AddPurchasesViewModel(
-            get(named(APP_CONTEXT)),
-            get(named(ITEM_REPO)),
-            get(named(PURCHASE_REPO))
-        )
-    }
+    // AddPurchase
+    viewModel { AddPurchasesViewModel(get(named(ITEM_REPO)), get(named(PURCHASE_REPO))) }
 
-    viewModel {
-        EditPurchasesViewModel(
-            get(named(APP_CONTEXT)),
-            get(named(ITEM_REPO)),
-            get(named(PURCHASE_REPO))
-        )
-    }
+    // EditPurchase
+    viewModel { EditPurchasesViewModel(get(named(ITEM_REPO)), get(named(PURCHASE_REPO))) }
 }
 
 const val APP_CONTEXT = "ApplicationContext"

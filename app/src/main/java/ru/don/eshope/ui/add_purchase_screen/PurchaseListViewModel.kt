@@ -9,6 +9,7 @@ import ru.don.eshope.R
 import ru.don.eshope.database.entities.Item
 import ru.don.eshope.database.repos.PurchaseRepository
 import ru.don.eshope.ui.adapter.RecyclerViewAdapter
+import ru.don.eshope.utils.getAmount
 
 class PurchaseListViewModel(private val purchaseRepository: PurchaseRepository) : BaseViewModel() {
 
@@ -32,7 +33,7 @@ class PurchaseListViewModel(private val purchaseRepository: PurchaseRepository) 
     private val _amount = MutableLiveData<Double>(0.0)
     val amount: LiveData<Double> = _amount
 
-    private val _items = MutableLiveData<MutableList<Item>>(arrayListOf())
+    private val _items = MutableLiveData<MutableList<Item>>(mutableListOf())
     val items: LiveData<MutableList<Item>> = _items
 
     init {
@@ -64,8 +65,8 @@ class PurchaseListViewModel(private val purchaseRepository: PurchaseRepository) 
                 else {
                     item.name = name!!
                     item.price = price!!.toDouble()
-                    updateAmount()
                 }
+                _amount.value = _items.value?.getAmount()
                 adapter.value?.notifyDataSetChanged()
                 true
             } else false
@@ -100,24 +101,17 @@ class PurchaseListViewModel(private val purchaseRepository: PurchaseRepository) 
         }
     }
 
-    private fun updateAmount() {
-        _amount.value = _items.value?.sumByDouble {
-            it.price
-        }
-    }
-
     private fun addNewItem(name: String?, price: Double?) {
         _items.value?.add(
             Item(null, name!!, 1, price!!, null)
         )
-        updateAmount()
         Log.d(AddPurchasesViewModel.TAG, "Items size: ${_items.value?.size}")
     }
 
     fun deleteItem(item: Item) {
         _items.value?.remove(item)
-        _amount.value = _amount.value?.minus(item.price * item.count)
         _adapter.value?.notifyDataSetChanged()
+        _amount.value = _items.value?.getAmount()
     }
 
     fun init(id: Int) {
@@ -125,6 +119,7 @@ class PurchaseListViewModel(private val purchaseRepository: PurchaseRepository) 
             {
                 _items.value = it.items.toMutableList()
                 _adapter.value?.notifyDataSetChanged()
+                _amount.value = _items.value?.getAmount()
             }, {
                 it.printStackTrace()
             }).unSubscribeOnDestroy()

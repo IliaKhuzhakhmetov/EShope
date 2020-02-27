@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="ru.don.eshope.utils.ItemUtilsKt" />
+
         <variable
             name="listVm"
             type="ru.don.eshope.ui.add_purchase_screen.PurchaseListViewModel" />

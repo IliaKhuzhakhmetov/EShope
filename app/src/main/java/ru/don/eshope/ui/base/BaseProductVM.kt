@@ -1,6 +1,5 @@
 package ru.don.eshope.ui.base
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.roonyx.orcheya.ui.base.BaseViewModel
@@ -16,7 +15,7 @@ interface IPurchase {
     fun changeTime(time: Long)
 }
 
-abstract class BaseProductVM(open val context: Context) :
+abstract class BaseProductVM :
     BaseViewModel() {
 
     protected val _date = MutableLiveData<String>(today())

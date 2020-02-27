@@ -1,10 +1,13 @@
 package ru.don.eshope.ui.purchase_one_screen
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.roonyx.orcheya.ui.base.BaseViewModel
+import ru.don.eshope.R
 import ru.don.eshope.database.entities.Item
 import ru.don.eshope.database.entities.PurchaseAndItems
 import ru.don.eshope.database.repos.PurchaseRepository
+import ru.don.eshope.ui.adapter.RecyclerViewAdapter
 
 interface IOnePurchasesViewModel {
     fun back()
@@ -22,11 +25,26 @@ class OnePurchasesViewModel(
     }
 
     lateinit var listener: IOnePurchasesViewModel
-    val amount = MutableLiveData<Double>(0.0)
-    val purchaseName = MutableLiveData<String>("")
-    val items = MutableLiveData<MutableList<Item>>(mutableListOf())
-    val date = MutableLiveData<String>()
-    private val purchase = MutableLiveData<PurchaseAndItems>()
+
+    // Adapter
+    private val _adapter = MutableLiveData<RecyclerViewAdapter<Item, OnePurchasesViewModel>>()
+    val adapter: LiveData<RecyclerViewAdapter<Item, OnePurchasesViewModel>> = _adapter
+
+    // Purchase
+    private val _purchase = MutableLiveData<PurchaseAndItems>()
+    val purchase: LiveData<PurchaseAndItems> = _purchase
+
+    // Items
+    private val _items = MutableLiveData<MutableList<Item>>()
+    val items: LiveData<MutableList<Item>> = _items
+
+    init {
+        _adapter.value = RecyclerViewAdapter(
+            R.layout.item_purchase_item_without_delete,
+            this
+        )
+        _adapter.value?.items = items
+    }
 
     fun edit() = listener.edit(purchase.value!!)
 
@@ -44,11 +62,10 @@ class OnePurchasesViewModel(
 
     fun getItemsByPurchaseId(id: Int) {
         purchaseRepository.getById(id).subscribe({
-            date.value = it.date
-            purchase.value = it
-            purchaseName.value = it.name
-            amount.value = it.amount
-            items.value = ArrayList(it.items)
+            _purchase.value = it
+            _items.value = it.items.toMutableList()
+
+            _adapter.value?.notifyDataSetChanged()
         }, {
             it.printStackTrace()
         }).unSubscribeOnDestroy()

@@ -11,11 +11,10 @@ import ru.don.eshope.utils.getAmount
 import ru.don.eshope.utils.today
 
 class AddPurchasesViewModel(
-    override val context: Context,
     private val itemRepository: ItemRepository,
     private val purchaseRepository: PurchaseRepository
 ) :
-    BaseProductVM(context) {
+    BaseProductVM() {
 
     companion object {
         val TAG = AddPurchasesViewModel::class.java.simpleName

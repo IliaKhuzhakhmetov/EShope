@@ -1,6 +1,5 @@
 package ru.don.eshope.ui.edit_purchase
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import ru.don.eshope.database.entities.Item
@@ -14,11 +13,10 @@ import ru.don.eshope.utils.today
 
 
 class EditPurchasesViewModel(
-    override val context: Context,
     private val itemRepository: ItemRepository,
     private val purchaseRepository: PurchaseRepository
 ) :
-    BaseProductVM(context) {
+    BaseProductVM() {
 
     companion object {
         val TAG = EditPurchasesViewModel::class.java.simpleName
