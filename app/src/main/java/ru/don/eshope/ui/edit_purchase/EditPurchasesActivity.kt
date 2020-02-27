@@ -19,6 +19,7 @@ import ru.don.eshope.utils.createSnackBar
 class EditPurchasesActivity : BaseActivity<ActivityEditPurchaseBinding>(), IPurchase {
 
     companion object {
+
         val ID_EDIT = "ID_EDIT_PURCHASE"
         val TAG = EditPurchasesActivity::class.java.simpleName
     }
