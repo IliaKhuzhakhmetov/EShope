@@ -8,14 +8,14 @@ import ru.don.eshope.database.entities.base.BaseDao
 data class Purchase(
     @PrimaryKey(autoGenerate = true) val id: Int?,
     @ColumnInfo(name = "shop_name") val name: String,
-    @ColumnInfo(name = "purchase_date") val date: String,
+    @ColumnInfo(name = "purchase_date") val date: Long,
     @ColumnInfo(name = "purchase_amount") var amount: Double
 )
 
 data class PurchaseAndItems(
     val id: Int,
     @ColumnInfo(name = "shop_name") val name: String,
-    @ColumnInfo(name = "purchase_date") val date: String,
+    @ColumnInfo(name = "purchase_date") val date: Long,
     @ColumnInfo(name = "purchase_amount") val amount: Double,
     @Relation(parentColumn = "id", entityColumn = "purchase_id") val items: List<Item>
 )
@@ -37,7 +37,7 @@ interface PurchaseDao : BaseDao<Purchase> {
     fun updateName(name: String, id: Int?)
 
     @Query("UPDATE purchase_table SET purchase_date = :date WHERE id =:id")
-    fun updateDate(date: String, id: Int?)
+    fun updateDate(date: Long, id: Int?)
 
     @Query("UPDATE purchase_table SET purchase_amount = :amount WHERE id =:id")
     fun updateAmount(amount: Double, id: Int?)

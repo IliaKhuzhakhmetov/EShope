@@ -64,7 +64,6 @@ class OnePurchasesViewModel(
         purchaseRepository.getById(id).subscribe({
             _purchase.value = it
             _items.value = it.items.toMutableList()
-
             _adapter.value?.notifyDataSetChanged()
         }, {
             it.printStackTrace()

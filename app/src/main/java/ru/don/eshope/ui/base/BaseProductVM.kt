@@ -3,9 +3,7 @@ package ru.don.eshope.ui.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.roonyx.orcheya.ui.base.BaseViewModel
-import ru.don.eshope.utils.getTimeByPattern
 import ru.don.eshope.utils.today
-import java.util.*
 
 interface IPurchase {
     fun addItem()
@@ -18,8 +16,8 @@ interface IPurchase {
 abstract class BaseProductVM :
     BaseViewModel() {
 
-    protected val _date = MutableLiveData<String>(today())
-    val date: LiveData<String> = _date
+    protected val _date = MutableLiveData<Long>(today())
+    val date: LiveData<Long> = _date
 
     val purchaseName = MutableLiveData<String>("")
 
@@ -30,10 +28,10 @@ abstract class BaseProductVM :
     }
 
     fun selectDate(time: Long) {
-        _date.value = Date(time).getTimeByPattern()
+        _date.value = time
     }
 
-    fun changeTime() = listener.changeTime(date.value?.getTimeByPattern() ?: 0)
+    fun changeTime() = listener.changeTime(date.value ?: 0)
 
     fun clickAddItem() = listener.addItem()
 

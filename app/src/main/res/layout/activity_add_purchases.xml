@@ -44,7 +44,7 @@
                 android:layout_marginStart="8dp"
                 android:gravity="center_vertical"
                 android:onClick="@{() -> vm.changeTime()}"
-                android:text="@{vm.date}"
+                app:date="@{vm.date}"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/rv"

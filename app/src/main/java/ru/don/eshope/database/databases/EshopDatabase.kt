@@ -7,7 +7,7 @@ import ru.don.eshope.database.entities.ItemDao
 import ru.don.eshope.database.entities.Purchase
 import ru.don.eshope.database.entities.PurchaseDao
 
-@Database(entities = [Purchase::class, Item::class], version = 1)
+@Database(entities = [Purchase::class, Item::class], version = 2)
 abstract class EshopDatabase : RoomDatabase() {
 
     abstract fun purchaseDao(): PurchaseDao

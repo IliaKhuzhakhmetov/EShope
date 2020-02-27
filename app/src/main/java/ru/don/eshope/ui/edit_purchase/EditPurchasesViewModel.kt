@@ -26,7 +26,7 @@ class EditPurchasesViewModel(
 
     fun save(items: List<Item>) {
         if (purchaseName.value?.isEmpty() == true) {
-            listener.emptyName();
+            listener.emptyName()
             return
         }
 

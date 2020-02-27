@@ -12,6 +12,7 @@ import ru.don.eshope.database.repos.PurchaseRepository
 import ru.don.eshope.ui.adapter.HeaderItemDecorationPurchase
 import ru.don.eshope.ui.adapter.RecyclerViewAdapter
 import ru.don.eshope.utils.dip
+import ru.don.eshope.utils.getTimeByPattern
 
 interface IPurchasesListViewModel {
     fun onPurchaseClick(purchase: Purchase)
@@ -59,13 +60,12 @@ class PurchasesViewModel(
             .subscribe(
                 {
                     _purchases.value = it.toMutableList().apply {
-                        sortBy { purchase -> purchase.id }
+                        //sortBy { purchase -> purchase.id }
                         sortBy { purchase -> purchase.date }
                         reverse()
                     }
-
-                    _adapter.value?.items = purchases
-                    Log.d(PurchasesViewModel.TAG, "Purchases size: ${it.size}")
+                    _adapter.value?.notifyDataSetChanged()
+                    Log.d(TAG, "Purchases size: ${it.size}")
                 },
                 { it.printStackTrace() }
             ).unSubscribeOnDestroy()
@@ -79,12 +79,12 @@ class PurchasesViewModel(
             object : HeaderItemDecorationPurchase.SectionCallback {
                 override fun isSection(position: Int): Boolean {
                     return position == 0 ||
-                            _purchases.value?.get(position)?.date !=
-                            _purchases.value?.get(position - 1)?.date
+                            _purchases.value?.get(position)?.date?.getTimeByPattern() !=
+                            _purchases.value?.get(position - 1)?.date?.getTimeByPattern()
                 }
 
                 override fun getSectionHeader(position: Int): CharSequence {
-                    return _purchases.value?.get(position)?.date ?: ":("
+                    return _purchases.value?.get(position)?.date?.getTimeByPattern() ?: ":("
                 }
 
             })

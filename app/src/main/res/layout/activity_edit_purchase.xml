@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="ru.don.eshope.utils.ItemUtilsKt" />
+        <import type="ru.don.eshope.utils.UtilsKt" />
 
         <variable
             name="listVm"
@@ -42,9 +42,9 @@
             android:layout_marginStart="8dp"
             android:gravity="center_vertical"
             android:onClick="@{() -> vm.changeTime()}"
-            android:text="@{vm.date}"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:date="@{vm.date}"
             app:layout_constraintBottom_toTopOf="@+id/rv"
             app:layout_constraintEnd_toStartOf="@+id/amount"
             app:layout_constraintHorizontal_bias="0.0"

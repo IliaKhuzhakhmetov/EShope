@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="ru.don.eshope.utils.UtilsKt" />
+
         <variable
             name="vm"
             type="ru.don.eshope.ui.purchase_one_screen.OnePurchasesViewModel" />
@@ -37,9 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="@{vm.purchase.date}"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:date="@{vm.purchase.date}"
             app:layout_constraintBottom_toBottomOf="@+id/amount"
             app:layout_constraintEnd_toStartOf="@+id/amount"
             app:layout_constraintHorizontal_bias="0.0"
@@ -80,7 +82,7 @@
             android:layout_marginTop="8dp"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:text="@{String.format(`%.2f`,vm.purchase.amount)}"
+            android:text="@{String.format(`%.2f`, vm.purchase.amount)}"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/back"
             app:layout_constraintTop_toBottomOf="@+id/title" />

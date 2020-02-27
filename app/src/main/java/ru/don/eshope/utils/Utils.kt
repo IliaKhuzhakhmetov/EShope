@@ -10,11 +10,21 @@ import java.util.*
 
 const val DAY_PATTERN = "dd MMMM yyyy"
 
-fun today() = Calendar.getInstance().time.getTimeByPattern()
+fun today() = Calendar.getInstance().time.time
+
+fun String.getLongTimeByPattern(pattern: String = DAY_PATTERN): Long {
+    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+    return sdf.parse(this).time
+}
 
 fun String.getTimeByPattern(pattern: String = DAY_PATTERN): Long {
     val sdf = SimpleDateFormat(pattern, Locale.getDefault())
     return sdf.parse(this).time + 80_000_000 // TODO need fix this Mistake
+}
+
+fun Long.getTimeByPattern(pattern: String = DAY_PATTERN): String {
+    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+    return sdf.format(this)
 }
 
 fun Date.getTimeByPattern(pattern: String = DAY_PATTERN): String {
