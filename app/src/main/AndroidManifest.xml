@@ -23,6 +23,9 @@
         <activity android:name=".ui.purchase_one_screen.OnePurchasesActivity" />
         <activity android:name=".ui.edit_purchase.EditPurchasesActivity" />
 
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${enableCrashReporting}" />
     </application>
 
 </manifest>
