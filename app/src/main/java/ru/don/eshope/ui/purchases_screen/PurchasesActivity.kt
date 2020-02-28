@@ -38,7 +38,6 @@ class PurchasesActivity : BaseActivity<ActivityPurchasesBinding>(), IPurchasesLi
 
     private fun initPurchasesRv() {
         vm.listener = this
-        vm.reInitItemDecorator()
     }
 
     override fun onPurchaseClick(purchase: Purchase) {

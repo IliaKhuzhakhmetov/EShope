@@ -5,14 +5,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.roonyx.orcheya.ui.base.BaseViewModel
-import ru.don.eshope.R
 import ru.don.eshope.data.DataProvider
 import ru.don.eshope.database.entities.Purchase
 import ru.don.eshope.database.repos.PurchaseRepository
-import ru.don.eshope.ui.adapter.HeaderItemDecorationPurchase
-import ru.don.eshope.ui.adapter.RecyclerViewAdapter
-import ru.don.eshope.utils.dip
-import ru.don.eshope.utils.getTimeByPattern
+import ru.don.eshope.ui.adapter.RecyclerViewAdapterPurchases
+import ru.don.eshope.utils.getGrouped
 
 interface IPurchasesListViewModel {
     fun onPurchaseClick(purchase: Purchase)
@@ -33,61 +30,27 @@ class PurchasesViewModel(
     val isDay = data.isDarkMode
 
     // Adapter
-    private val _adapter = MutableLiveData<RecyclerViewAdapter<Purchase, PurchasesViewModel>>()
-    val adapter: LiveData<RecyclerViewAdapter<Purchase, PurchasesViewModel>> = _adapter
-
-    // Purchases
-    private val _purchases = MutableLiveData<MutableList<Purchase>>()
-    val purchases: LiveData<MutableList<Purchase>> = _purchases
-
-    // ItemDecorator
-    private val _decorator = MutableLiveData<HeaderItemDecorationPurchase>()
-    val decorator: LiveData<HeaderItemDecorationPurchase> = _decorator
+    private val _adapter = MutableLiveData<RecyclerViewAdapterPurchases>()
+    val adapter: LiveData<RecyclerViewAdapterPurchases> = _adapter
 
     init {
-        _adapter.value = RecyclerViewAdapter(
-            R.layout.item_purchase,
+        _adapter.value = RecyclerViewAdapterPurchases(
             this
         )
-        _adapter.value?.items = purchases
 
         getAllPurchases()
-        reInitItemDecorator()
     }
 
     fun getAllPurchases() {
         purchaseRepository.getAllPurchases()
             .subscribe(
                 {
-                    _purchases.value = it.toMutableList().apply {
-                        //sortBy { purchase -> purchase.id }
-                        sortBy { purchase -> purchase.date }
-                        reverse()
-                    }
+                    _adapter.value?.items = it.getGrouped()
                     _adapter.value?.notifyDataSetChanged()
                     Log.d(TAG, "Purchases size: ${it.size}")
                 },
                 { it.printStackTrace() }
             ).unSubscribeOnDestroy()
-    }
-
-    // Need after user change THEME
-    fun reInitItemDecorator() {
-        _decorator.value = HeaderItemDecorationPurchase(
-            context.dip(46),
-            true,
-            object : HeaderItemDecorationPurchase.SectionCallback {
-                override fun isSection(position: Int): Boolean {
-                    return position == 0 ||
-                            _purchases.value?.get(position)?.date?.getTimeByPattern() !=
-                            _purchases.value?.get(position - 1)?.date?.getTimeByPattern()
-                }
-
-                override fun getSectionHeader(position: Int): CharSequence {
-                    return _purchases.value?.get(position)?.date?.getTimeByPattern() ?: ":("
-                }
-
-            })
     }
 
     fun onClick(purchase: Purchase) = listener.onPurchaseClick(purchase)
