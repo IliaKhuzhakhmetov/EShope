@@ -2,7 +2,7 @@ package ru.don.eshope.ui.purchases_screen
 
 import android.content.Intent
 import android.os.Bundle
-import com.roonyx.orcheya.ui.base.BaseActivity
+import ru.don.eshope.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_purchases.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.don.eshope.R

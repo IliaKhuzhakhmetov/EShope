@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
-import com.roonyx.orcheya.ui.base.BaseActivity
+import ru.don.eshope.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_add_purchases.*
 import kotlinx.android.synthetic.main.dialog_add_purchase.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

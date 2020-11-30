@@ -1,4 +1,4 @@
-package com.roonyx.orcheya.ui.base
+package ru.don.eshope.ui.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes

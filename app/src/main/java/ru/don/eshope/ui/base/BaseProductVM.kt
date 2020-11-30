@@ -2,7 +2,6 @@ package ru.don.eshope.ui.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.roonyx.orcheya.ui.base.BaseViewModel
 import ru.don.eshope.utils.today
 
 interface IPurchase {

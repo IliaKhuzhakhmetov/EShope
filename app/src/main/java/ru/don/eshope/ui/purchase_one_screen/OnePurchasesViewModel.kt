@@ -2,7 +2,7 @@ package ru.don.eshope.ui.purchase_one_screen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.roonyx.orcheya.ui.base.BaseViewModel
+import ru.don.eshope.ui.base.BaseViewModel
 import ru.don.eshope.R
 import ru.don.eshope.database.entities.Item
 import ru.don.eshope.database.entities.PurchaseAndItems

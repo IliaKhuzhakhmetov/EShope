@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.roonyx.orcheya.ui.base.BaseViewModel
+import ru.don.eshope.ui.base.BaseViewModel
 import ru.don.eshope.data.DataProvider
 import ru.don.eshope.database.entities.Purchase
 import ru.don.eshope.database.repos.PurchaseRepository
@@ -30,14 +30,14 @@ class PurchasesViewModel(
     val isDay = data.isDarkMode
 
     // Adapter
-    private val _adapter = MutableLiveData<RecyclerViewAdapterPurchases>()
+    private val _adapter = MutableLiveData<RecyclerViewAdapterPurchases>(
+        RecyclerViewAdapterPurchases(
+            this
+        )
+    )
     val adapter: LiveData<RecyclerViewAdapterPurchases> = _adapter
 
     init {
-        _adapter.value = RecyclerViewAdapterPurchases(
-            this
-        )
-
         getAllPurchases()
     }
 

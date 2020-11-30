@@ -1,4 +1,4 @@
-package com.roonyx.orcheya.ui.base
+package ru.don.eshope.ui.base
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -8,7 +8,8 @@ abstract class BaseViewModel : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    protected fun Disposable.unSubscribeOnDestroy(): Disposable = this.apply { compositeDisposable.addAll(this) }
+    protected fun Disposable.unSubscribeOnDestroy(): Disposable =
+        this.apply { compositeDisposable.addAll(this) }
 
     override fun onCleared() {
         compositeDisposable.dispose()

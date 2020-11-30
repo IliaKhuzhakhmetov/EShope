@@ -10,16 +10,24 @@ import java.util.*
 
 const val DAY_PATTERN = "dd MMMM yyyy"
 
-fun today() = Calendar.getInstance().time.time
+fun Date.deleteHours(): Date {
+    val sdf = SimpleDateFormat(DAY_PATTERN, Locale.getDefault())
+    return sdf.parse(sdf.format(this)) ?: throw Exception("Error when try to parse: $this")
+}
+
+fun today(pattern: String = DAY_PATTERN): Long {
+    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+    return sdf.parse(sdf.format(Calendar.getInstance().time))?.time ?: 0
+}
 
 fun String.getLongTimeByPattern(pattern: String = DAY_PATTERN): Long {
     val sdf = SimpleDateFormat(pattern, Locale.getDefault())
-    return sdf.parse(this).time
+    return sdf.parse(this)?.time ?: 0
 }
 
 fun String.getTimeByPattern(pattern: String = DAY_PATTERN): Long {
     val sdf = SimpleDateFormat(pattern, Locale.getDefault())
-    return sdf.parse(this).time + 80_000_000 // TODO need fix this Mistake
+    return sdf.parse(this)?.time ?: 0 + 80_000_000 // TODO need fix this Mistake
 }
 
 fun Long.getTimeByPattern(pattern: String = DAY_PATTERN): String {

@@ -4,7 +4,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.roonyx.orcheya.ui.base.BaseViewModel
+import ru.don.eshope.ui.base.BaseViewModel
 import ru.don.eshope.R
 import ru.don.eshope.database.entities.Item
 import ru.don.eshope.database.repos.PurchaseRepository
@@ -48,7 +48,7 @@ class PurchaseListViewModel(private val purchaseRepository: PurchaseRepository) 
         val TAG = PurchaseListViewModel::class.java.simpleName
     }
 
-    fun edit(view: View, item: Item): Boolean {
+    fun edit(item: Item): Boolean {
         _editItem.value = item
         return false
     }

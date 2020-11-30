@@ -1,6 +1,5 @@
 package ru.don.eshope.ui.add_purchase_screen
 
-import android.content.Context
 import android.util.Log
 import ru.don.eshope.database.entities.Item
 import ru.don.eshope.database.entities.Purchase
